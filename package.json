@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "start":"nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "naol meseret",
   "license": "ISC",
-  "description": "an exersise to node ,express ,mongodb"
+  "description": "an exersise to node ,express ,mongodb",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
