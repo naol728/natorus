@@ -1,15 +1,32 @@
 const express = require('express');
+const morgan = require('morgan');
 const fs = require('fs');
 const { stringify } = require('querystring');
 const app = express();
 
+// midelware
+
 app.use(express.json());
+app.use(morgan());
+
+app.use((req, res, next) => {
+  console.log('hello from middleware👋');
+  next();
+});
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
+
+// functions
+
 const getAlltours = (req, res) => {
   res.status(200).json({
     status: 'success',
+    requestedtime: req.requestTime,
     tours,
   });
 };
@@ -78,6 +95,8 @@ const addTour = (req, res) => {
     }
   );
 };
+
+// routhing
 
 app.route('/api/v1/tours').get(getAlltours).post(addTour);
 
