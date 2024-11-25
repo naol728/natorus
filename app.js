@@ -11,13 +11,33 @@ const tours = JSON.parse(
 app.get('/', (req, res) => {
   res.status(200).send('this is the message from server');
 });
+
 app.post('/', (req, res) => {
   res.status(200).send('you can post anything in this url');
 });
+
 app.get('/api/v1/tours', (req, res) => {
   res.status(200).json({
     status: 'success',
     tours,
+  });
+});
+
+app.get('/api/v1/tours/:id', (req, res) => {
+  const id = Number(req.params.id);
+
+  const tour = tours.find((el) => el.id === id);
+  if (!tour) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'invalid id no',
+    });
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
   });
 });
 
