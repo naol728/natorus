@@ -7,23 +7,14 @@ app.use(express.json());
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
-
-app.get('/', (req, res) => {
-  res.status(200).send('this is the message from server');
-});
-
-app.post('/', (req, res) => {
-  res.status(200).send('you can post anything in this url');
-});
-
-app.get('/api/v1/tours', (req, res) => {
+const getAlltours = (req, res) => {
   res.status(200).json({
     status: 'success',
     tours,
   });
-});
+};
 
-app.get('/api/v1/tours/:id', (req, res) => {
+const getTour = (req, res) => {
   const id = Number(req.params.id);
 
   const tour = tours.find((el) => el.id === id);
@@ -39,9 +30,36 @@ app.get('/api/v1/tours/:id', (req, res) => {
       tour,
     },
   });
-});
-
-app.post('/api/v1/tours', (req, res) => {
+};
+const updateTour = (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'invalid id no',
+    });
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: ' <updated tour/>',
+    },
+  });
+};
+const deleteTour = (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'invalid id no',
+    });
+  }
+  res.status(204).json({
+    status: 'success',
+    data: {
+      tour: null,
+    },
+  });
+};
+const addTour = (req, res) => {
   const tourid = tours[tours.length - 1].id + 1;
   const newtour = Object.assign({ id: tourid }, req.body);
 
@@ -59,7 +77,15 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
+
+app.route('/api/v1/tours').get(getAlltours).post(addTour);
+
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 // SERVER
 const port = 3000;
