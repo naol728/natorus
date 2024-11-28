@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start:dev": "nodemon server.js",
+    "start:pod": "NODE_ENV=production nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "prettier --check '**/*.{js,jsx,ts,tsx,css}'",
     "prettier:fix": "prettier --write '**/*.{js,jsx,ts,tsx,css}'"
@@ -12,6 +13,7 @@
   "license": "ISC",
   "description": "an exersise to node ,express ,mongodb",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "morgan": "^1.10.0"
   },
