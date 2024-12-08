@@ -5,7 +5,7 @@ exports.checkBody = (req, res, next) => {
   if (!req.body.name || !req.body.price) {
     return res.status(400).json({
       staus: 'fail',
-      message: 'missing of name or price',
+      message: 'error from checkbody midleware',
     });
   }
   next();
@@ -83,9 +83,8 @@ exports.deleteTour = async (req, res) => {
 
 exports.addTour = async (req, res) => {
   try {
-    console.log(req.body);
     const newtour = await Tour.create(req.body);
-
+    console.log(newtour);
     res.status(201).json({
       status: 'succsus',
       data: {
