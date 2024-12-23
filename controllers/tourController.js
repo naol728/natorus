@@ -10,6 +10,7 @@ exports.checkBody = (req, res, next) => {
   }
   next();
 };
+
 exports.getAlltours = async (req, res) => {
   try {
     const tours = await Tour.find();
