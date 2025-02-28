@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Tour = require('./../models/tourmodel');
 
 exports.checkBody = (req, res, next) => {
@@ -13,9 +12,28 @@ exports.checkBody = (req, res, next) => {
 
 exports.getAlltours = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    // BUILDING QUERY
+    const queryObj = { ...req.query };
+    const execludedQuery = ['limit', 'sort', 'page', 'fileds'];
+    execludedQuery.forEach((el) => delete queryObj[el]);
+
+    // ADVANCED FILTERING
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
+    let query = Tour.find(JSON.parse(queryStr));
+
+    if (req.query.sort) {
+      const Sortby = req.query.sort.split(',').join(' ');
+      query = query.sort(Sortby);
+    }
+
+    // EXCUTING QUERY
+    const tours = await query;
+
+    // SEND RESPONSE
     res.status(200).json({
       status: 'success',
+      results: tours.length,
       requestedtime: req.requestTime,
       tours,
     });
