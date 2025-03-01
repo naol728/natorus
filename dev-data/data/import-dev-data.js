@@ -13,11 +13,7 @@ const DB = process.env.DATABASELOCAL.replace(
 
 // CREATE A CONNCETION TO THE DATABASE
 mongoose
-  .connect(process.env.DATABASELOCAL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(process.env.DATABASELOCAL)
   .then((con) => {
     console.log('DB connected succsusfuly');
   })
