@@ -4,13 +4,11 @@ const mongoose = require('mongoose');
 const Tour = require('../../models/tourmodel');
 
 dotenv.config({ path: './config.env' });
-
 // PROCESS TO CONECT TO THE REMOTE DATABASE
 const DB = process.env.DATABASELOCAL.replace(
   '<PASSWORD>',
   process.env.DATABASEPASSWORD,
 );
-
 // CREATE A CONNCETION TO THE DATABASE
 mongoose
   .connect(process.env.DATABASELOCAL)
