@@ -13,6 +13,7 @@ exports.checkBody = (req, res, next) => {
 exports.getAlltours = async (req, res) => {
   try {
     // BUILDING QUERY
+    console.log(req.query);
     const queryObj = { ...req.query };
     const execludedQuery = ['limit', 'sort', 'page', 'fileds'];
     execludedQuery.forEach((el) => delete queryObj[el]);
@@ -25,8 +26,25 @@ exports.getAlltours = async (req, res) => {
     if (req.query.sort) {
       const Sortby = req.query.sort.split(',').join(' ');
       query = query.sort(Sortby);
+    } else {
+      query = query.sort('-createdAt');
+    }
+    if (req.query.fields) {
+      const fields = req.query.sort.split(',').join(' ');
+      query = query.select(fields);
+    } else {
+      query = query.select('-__v');
     }
 
+    // pagination  limiting the response send to the client
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+    const skip = (page - 1) * limit;
+    query = query.skip(skip).limit(limit);
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      if (skip >= numTours) throw new Error('page not found');
+    }
     // EXCUTING QUERY
     const tours = await query;
 
