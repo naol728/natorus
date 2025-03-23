@@ -25,7 +25,6 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
- 
 
 // SERVER LISTEN TO PORT
 const port = process.env.PORT || 3000;
