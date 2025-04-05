@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "start:pod": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "prettier --check '**/*.{js,jsx,ts,tsx,css}'",
     "prettier:fix": "prettier --write '**/*.{js,jsx,ts,tsx,css}'"
@@ -28,6 +29,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
+    "ndb": "^1.1.5",
     "nodemon": "^3.1.7",
     "prettier": "^3.4.1"
   }

@@ -3,13 +3,14 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const Tour = require('../../models/tourmodel');
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: './../../config.env' });
 // PROCESS TO CONECT TO THE REMOTE DATABASE
 const DB = process.env.DATABASELOCAL.replace(
   '<PASSWORD>',
   process.env.DATABASEPASSWORD,
 );
 // CREATE A CONNCETION TO THE DATABASE
+
 mongoose
   .connect(process.env.DATABASELOCAL)
   .then((con) => {
@@ -23,7 +24,7 @@ mongoose
 const tour = JSON.parse(
   fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8'),
 );
-
+console.log(tour);
 // IMPORT DATA INTO THE DATABASE FROM LOCAL
 const importdata = async () => {
   try {
