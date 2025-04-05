@@ -1,8 +1,12 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const app = require('./app');
-
+const morgan = require('morgan');
 dotenv.config({ path: './config.env' });
+
+if (process.env.NODE_ENV == 'development') {
+  app.use(morgan('dev'));
+}
 
 // PROCESS TO CONECT TO THE REMOTE DATABASE
 

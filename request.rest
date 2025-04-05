@@ -1,2 +1,31 @@
 ## GETING ALL  TOURS
-GET http://127.0.0.1:3000/api/v1/tours?page=3
+GET http://127.0.0.1:5000/api/v1/tours/monthly-plan?year=2021
+## GETING ALL  TOURS
+
+### get all tours
+GET http://127.0.0.1:5000/api/v1/tours
+
+
+### get a single tour
+GET http://127.0.0.1:5000/api/v1/tours/67e05f3c72e1e84b0725b520
+
+
+### post a tour
+POST  http://127.0.0.1:5000/api/v1/tours
+Content-Type: application/json
+
+  {
+     "name": "The secret Gazer",
+    "duration": 9,
+    "maxGroupSize": 8,
+    "difficulty": "medium",
+    "ratingsAverage": 4.7,
+    "ratingsQuantity": 28,
+    "price": 2997,
+    "summary": "The most remote and stunningly beautiful places for seeing the night sky",
+    "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "imageCover": "tour-8-cover.jpg",
+    "images": ["tour-8-1.jpg", "tour-8-2.jpg", "tour-8-3.jpg"],
+    "startDates": ["2021-03-23,10:00", "2021-10-25,10:00", "2022-01-30,10:00"],
+    "secretTour":true
+  }
