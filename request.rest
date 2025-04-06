@@ -7,7 +7,7 @@ GET http://127.0.0.1:5000/api/v1/tours
 
 
 ### get a single tour
-GET http://127.0.0.1:5000/api/v1/tours/67e05f3c72e1e84b0725b520
+GET http://127.0.0.1:5000/api/v1/tours/67e05f3gggggc72e1b0725b520
 
 
 ### post a tour
