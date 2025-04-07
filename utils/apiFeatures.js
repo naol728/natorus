@@ -1,47 +1,49 @@
-class ApiFeatures {
+class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
   }
 
   filter() {
-    console.log(this.query);
     const queryObj = { ...this.queryString };
-    const execludedQuery = ['limit', 'sort', 'page', 'fileds'];
-    execludedQuery.forEach((el) => delete queryObj[el]);
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
     let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
-    this.query.find(JSON.parse(queryStr));
-    return this;
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+    this.query = this.query.find(JSON.parse(queryStr));
+    return this; // Return this to allow chaining
   }
 
   sort() {
     if (this.queryString.sort) {
-      const Sortby = this.queryString.sort.split(',').join(' ');
-      this.query = this.query.sort(Sortby);
+      let sortBy = this.queryString.sort.split(',').join(' ');
+      this.query = this.query.sort(sortBy);
     } else {
       this.query = this.query.sort('-createdAt');
     }
-
-    return this;
+    return this; // Return this to allow chaining
   }
 
-  limit() {
+  limitFields() {
     if (this.queryString.fields) {
-      const fields = this.queryString.sort.split(',').join(' ');
+      let fields = this.queryString.fields.split(',').join(' ');
       this.query = this.query.select(fields);
     } else {
       this.query = this.query.select('-__v');
     }
-    return this;
+    return this; // Return this to allow chaining
   }
-  pagination() {
-    const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 10;
-    const skip = (page - 1) * limit;
-    this.query = this.query.skip(skip).limit(limit);
 
-    return this;
+  paginate() {
+    let page = this.queryString.page * 1 || 1;
+    let limit = this.queryString.limit * 1 || 100;
+    let skip = (page - 1) * limit;
+
+    this.query = this.query.skip(skip).limit(limit);
+    return this; // Return this to allow chaining
   }
 }
-module.exports = ApiFeatures;
+
+module.exports = APIFeatures;
