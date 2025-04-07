@@ -7,14 +7,14 @@ GET http://127.0.0.1:5000/api/v1/tours
 
 
 ### get a single tour
-GET http://127.0.0.1:5000/api/v1/tours/67e05f3c72e1e84b0725b528
+GET http://127.0.0.1:5000/api/v1/tours/67e05fkkkkc72e1e84b0725b528
 
 
 ### post a tour
 POST  http://127.0.0.1:5000/api/v1/tours
 Content-Type: application/json
 
-  {
+{
      "name": "The secret Gazer",
     "duration": 9,2
     "maxGroupSize": 8,
@@ -29,3 +29,18 @@ Content-Type: application/json
     "startDates": ["2021-03-23,10:00", "2021-10-25,10:00", "2022-01-30,10:00"],
     "secretTour":true
   }
+
+
+### signup a new user 
+
+POST  http://127.0.0.1:5000/api/v1/users/signup
+Content-Type: application/json
+
+{
+  "name":"test",
+  "email":"test@gmail.com",
+  "password":"password",
+  "conformpassword":"password"
+}
+
+  

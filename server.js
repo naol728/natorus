@@ -1,9 +1,15 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const app = require('./app');
 const morgan = require('morgan');
-dotenv.config({ path: './config.env' });
 
+process.on('uncaughtException', (err) => {
+  console.log(err.name, err.message);
+  console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
+  process.exit();
+});
+
+dotenv.config({ path: './config.env' });
+const app = require('./app');
 if (process.env.NODE_ENV == 'development') {
   app.use(morgan('dev'));
 }
@@ -33,6 +39,15 @@ mongoose
 // SERVER LISTEN TO PORT
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`server starts at ${port} port number`);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.log(err.name, err.message);
+  console.log('UNHANDELED REJECTION SERVER IS SHUTINGDOWN💥.....');
+
+  server.close(() => {
+    process.exit();
+  });
 });

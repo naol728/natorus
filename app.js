@@ -15,12 +15,11 @@ app.use((req, res, next) => {
 });
 
 // ROUTING
-
+app.use(express.json()); // PARSING THE JSON DATA
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
 app.all('*', (req, res, next) => {
- 
   next(new AppError(`cant find ${req.originalUrl} on this server`, 404));
 });
 app.use(globalErrorHandler);
