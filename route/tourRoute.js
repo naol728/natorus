@@ -11,11 +11,15 @@ router
 
 router.route('/tour-stats').get(tourController.getTourStats);
 router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
+const handlesending = (req, res) => {
+  console.log(req.body);
 
-router
-  .route('/')
-  .get(tourController.getAllTours)
-  .post(tourController.createTour);
+  res.status(200).json({
+    status: 'success',
+    data: req.body,
+  });
+};
+router.route('/').get(tourController.getAllTours).post(handlesending);
 
 router
   .route('/:id')
