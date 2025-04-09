@@ -36,10 +36,29 @@ POST  http://127.0.0.1:5000/api/v1/users/signup
 Content-Type: application/json
 
 {
-  "name":"test3",
-  "email":"test4@gmail.com",
-  "password":"password",
+  "name":"test4",
+  "email":"test8@gmail.com",
+  "password":"passsword",
   "conformpassword":"passsword"
+}
+
+### login the user
+POST  http://127.0.0.1:5000/api/v1/users/login
+Content-Type: application/json
+
+{
+  "email":"test8@gmail.com",
+  "password":"passsword"
+}
+
+
+### login the user
+GET   http://127.0.0.1:5000/api/v1/users
+Content-Type: application/json
+
+{
+  "email":"test8@gmail.com",
+  "password":"passsword"
 }
 
   

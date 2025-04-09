@@ -1,5 +1,6 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
+const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
@@ -11,20 +12,16 @@ router
 
 router.route('/tour-stats').get(tourController.getTourStats);
 router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
-const handlesending = (req, res) => {
-  console.log(req.body);
 
-  res.status(200).json({
-    status: 'success',
-    data: req.body,
-  });
-};
-router.route('/').get(tourController.getAllTours).post(handlesending);
+router
+  .route('/')
+  .get(authController.protect, tourController.getAllTours)
+  .post(authController.protect, tourController.createTour);
 
 router
   .route('/:id')
-  .get(tourController.getTour)
-  .patch(tourController.updateTour)
-  .delete(tourController.deleteTour);
+  .get(authController.protect, tourController.getTour)
+  .patch(authController.protect, tourController.updateTour)
+  .delete(authController.protect, tourController.deleteTour);
 
 module.exports = router;
