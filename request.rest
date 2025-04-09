@@ -3,8 +3,11 @@ GET http://127.0.0.1:5000/api/v1/tours/monthly-plan?year=2021
 ## GETING ALL  TOURS
 
 ### get all tours
-GET http://127.0.0.1:5000/api/v1/tours
-
+GET http://127.0.0.1:5000/api/v1/users
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDE5MTk3OCwiZXhwIjoxNzUxOTY3OTc4fQ.zpZxTF3syBcwbRJ7hF8NCJBDPEReasp6LI6Sv0j8eqk
+### delete a  tour
+DELETE   http://127.0.0.1:5000/api/v1/tours/67e05f3c72e1e84b0725b527
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDE5MjE5MiwiZXhwIjoxNzUxOTY4MTkyfQ.yGvs7t7W97zxoz6s7kPot7rwEc8mE1tG7k9ZS41OvYE
 
 ### get a single tour
 GET http://127.0.0.1:5000/api/v1/tours/67e05fkkkkc72e1e84b0725b528
@@ -12,6 +15,7 @@ GET http://127.0.0.1:5000/api/v1/tours/67e05fkkkkc72e1e84b0725b528
 
 ### post a tour
 POST  http://127.0.0.1:5000/api/v1/tours
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDE5MTk3OCwiZXhwIjoxNzUxOTY3OTc4fQ.zpZxTF3syBcwbRJ7hF8NCJBDPEReasp6LI6Sv0j8eqk
 Content-Type: application/json
 
 {
@@ -36,10 +40,10 @@ POST  http://127.0.0.1:5000/api/v1/users/signup
 Content-Type: application/json
 
 {
-  "name":"test4",
-  "email":"test8@gmail.com",
-  "password":"passsword",
-  "conformpassword":"passsword"
+  "name":"user",
+  "email":"user@gmail.com",
+  "password":"useruser",
+  "conformpassword":"useruser"
 }
 
 ### login the user
@@ -47,8 +51,8 @@ POST  http://127.0.0.1:5000/api/v1/users/login
 Content-Type: application/json
 
 {
-  "email":"test8@gmail.com",
-  "password":"passsword"
+  "email":"user@gmail.com",
+  "password":"useruser"
 }
 
 
@@ -61,4 +65,19 @@ Content-Type: application/json
   "password":"passsword"
 }
 
-  
+### forgote a password for the user 
+post   http://127.0.0.1:5000/api/v1/users/forgotepassword
+Content-Type: application/json
+
+{
+  "email":"user@gmail.com"
+}
+
+### reset the pasword with the sended token  
+post   http://127.0.0.1:5000/api/v1/users/resetpassword/0e56282663900707305fb77dea006e8ee5bcd17c88df6d0eb91ef1f7b451fb04
+Content-Type: application/json
+
+{
+  "password":"useruser",
+  "conformpassword":"useruser"
+}

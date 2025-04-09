@@ -2,11 +2,11 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-process.on('uncaughtException', (err) => {
-  console.log(err.name, err.message);
-  console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
-  process.exit();
-});
+// process.on('uncaughtException', (err) => {
+//   console.log(err.name, err.message);
+//   console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
+//   process.exit();
+// });
 
 dotenv.config({ path: './config.env' });
 const app = require('./app');
