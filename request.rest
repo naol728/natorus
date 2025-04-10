@@ -81,3 +81,26 @@ Content-Type: application/json
   "password":"useruser",
   "conformpassword":"useruser"
 }
+
+### update the user pasword
+
+post http://127.0.0.1:5000/api/v1/users/updatepassword/67f641e9db2dc10c7040be85
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDIwMTkyMCwiZXhwIjoxNzUxOTc3OTIwfQ.3yjHwjksz2oUAiSCMwJdZ5Wizrft3PCCPXeRSPMQOME
+Content-Type: application/json
+
+{
+  "passwordCurrent":"useruser",
+  "password":"useruser",
+  "conformpassword":"useruser"
+
+}
+
+### delete a user 
+post   http://127.0.0.1:5000/api/v1/users/deleteme
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDIwMTkyMCwiZXhwIjoxNzUxOTc3OTIwfQ.3yjHwjksz2oUAiSCMwJdZ5Wizrft3PCCPXeRSPMQOME
+Content-Type: application/json
+
+### get all users
+GET http://127.0.0.1:5000/api/v1/users
+
+### delete a  tour
