@@ -1,10 +1,11 @@
 const User = require('./../models/usermodel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
+const pino = require('pino-http')();
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
-
+  pino(req, res);
   res.status(200).json({
     status: 'error',
     data: {

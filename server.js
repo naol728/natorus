@@ -1,15 +1,20 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-
-// process.on('uncaughtException', (err) => {
-//   console.log(err.name, err.message);
-//   console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
-//   process.exit();
-// });
+const helemet = require('helmet');
+const pino = require('pino-http')();
+process.on('uncaughtException', (err) => {
+  console.log(err.name, err.message);
+  console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
+  process.exit();
+});
 
 dotenv.config({ path: './config.env' });
 const app = require('./app');
+app.use(helemet());
+app.disable('x-powered-by');
+app.use(pino);
+
 if (process.env.NODE_ENV == 'development') {
   app.use(morgan('dev'));
 }
@@ -24,11 +29,7 @@ const DB = process.env.DATABASELOCAL.replace(
 // CONNECT TO THE MONGOOSE
 
 mongoose
-  .connect(process.env.DATABASELOCAL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(process.env.DATABASELOCAL)
   .then((con) => {
     console.log('DB connected succsusfuly');
   })
