@@ -1,10 +1,12 @@
 const express = require('express');
 const tourController = require('./../controllers/tourController');
 const authController = require('./../controllers/authController');
-
+const reviewRoute = require('./../route/reviewRoute');
 const router = express.Router();
 
 // router.param('id', tourController.checkID);
+// redirecting the route
+router.use('/:tourId/reviews', reviewRoute);
 
 router
   .route('/top-5-cheap')
@@ -20,7 +22,7 @@ router
 
 router
   .route('/:id')
-  .get(authController.protect, tourController.getTour)
+  .get(tourController.getTour)
   .patch(authController.protect, tourController.updateTour)
   .delete(
     authController.protect,

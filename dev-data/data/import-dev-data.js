@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Tour = require('../../models/tourmodel');
+const User = require('../../models/usermodel');
 
 dotenv.config({ path: './../../config.env' });
 // PROCESS TO CONECT TO THE REMOTE DATABASE
@@ -21,14 +22,11 @@ mongoose
   });
 
 // READ JSON FILE
-const tour = JSON.parse(
-  fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8'),
-);
-console.log(tour);
+const tour = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 // IMPORT DATA INTO THE DATABASE FROM LOCAL
 const importdata = async () => {
   try {
-    await Tour.create(tour);
+    await User.create(tour);
   } catch (err) {
     console.log(err);
   }
