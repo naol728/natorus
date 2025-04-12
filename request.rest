@@ -3,14 +3,15 @@ GET http://127.0.0.1:5000/api/v1/tours/monthly-plan?year=2021
 ## GETING ALL  TOURS
 
 ### get all tours
-GET http://127.0.0.1:5000/api/v1/users
+GET http://127.0.0.1:5000/api/v1/tours
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDE5MTk3OCwiZXhwIjoxNzUxOTY3OTc4fQ.zpZxTF3syBcwbRJ7hF8NCJBDPEReasp6LI6Sv0j8eqk
 ### delete a  tour
-DELETE   http://127.0.0.1:5000/api/v1/tours/67e05f3c72e1e84b0725b527
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDE5MjE5MiwiZXhwIjoxNzUxOTY4MTkyfQ.yGvs7t7W97zxoz6s7kPot7rwEc8mE1tG7k9ZS41OvYE
+DELETE   http://127.0.0.1:5000/api/v1/tours/5c88fa8cf4afda39709c2955
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmE3N2I5NzYzMWRmOTRjMmE4ZmE4ZCIsImlhdCI6MTc0NDQ2Nzg5OCwiZXhwIjoxNzUyMjQzODk4fQ.PTEkFPwVsyu9Ek3vILdtT42r0COHerllDZL9shIEEAs
 
 ### get a single tour
-GET http://127.0.0.1:5000/api/v1/tours/67e05fkkkkc72e1e84b0725b528
+GET http://127.0.0.1:5000/api/v1/tours/5c88fa8cf4afda39709c2955
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDE5MjE5MiwiZXhwIjoxNzUxOTY4MTkyfQ.yGvs7t7W97zxoz6s7kPot7rwEc8mE1tG7k9ZS41OvYE
 
 
 ### post a tour
@@ -19,8 +20,8 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZG
 Content-Type: application/json
 
 {
-     "name": "The secret Gazer",
-    "duration": 9,2
+    "name": "test-tour 7",
+    "duration": 9,
     "maxGroupSize": 8,
     "difficulty": "medium",
     "ratingsAverage": 4.7,
@@ -31,19 +32,21 @@ Content-Type: application/json
     "imageCover": "tour-8-cover.jpg",
     "images": ["tour-8-1.jpg", "tour-8-2.jpg", "tour-8-3.jpg"],
     "startDates": ["2021-03-23,10:00", "2021-10-25,10:00", "2022-01-30,10:00"],
-    "secretTour":true
-  }
-
+    "secretTour":true,
+    "guides":[
+      "67f641e9db2dc10c7040be85"
+    ]
+}
 
 ### signup a new user 
 POST  http://127.0.0.1:5000/api/v1/users/signup
 Content-Type: application/json
 
 {
-  "name":"user",
-  "email":"user@gmail.com",
-  "password":"useruser",
-  "conformpassword":"useruser"
+  "name":"naol",
+  "email":"naol@gmail.com",
+  "password":"Naol1234",
+  "conformpassword":"Naol1234"
 }
 
 ### login the user
@@ -104,3 +107,14 @@ Content-Type: application/json
 GET http://127.0.0.1:5000/api/v1/users
 
 ### delete a  tour
+
+
+### add a review to a tour 
+post http://127.0.0.1:5000/api/v1/tours/5c88fa8cf4afda39709c2955/reviews
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmE3N2I5NzYzMWRmOTRjMmE4ZmE4ZCIsImlhdCI6MTc0NDQ2Nzg5OCwiZXhwIjoxNzUyMjQzODk4fQ.PTEkFPwVsyu9Ek3vILdtT42r0COHerllDZL9shIEEAs
+Content-Type: application/json
+
+{
+  "review":"fantastic tour",
+  "rating":5
+}

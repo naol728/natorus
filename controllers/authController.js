@@ -19,6 +19,25 @@ const filterObj = (obj, ...allowedFields) => {
   });
 };
 
+const signsendToken = (user, res) => {
+  const token = signToken(user._id);
+
+  const cookieOption = {
+    expiresIn: new Date(
+      Date().now + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOption.secure = true;
+
+  res.cookie('jwt', token, cookieOption);
+  res.status(200).json({
+    status: 'success',
+    token,
+  });
+};
+
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
   const token = signToken(newUser._id);
@@ -42,12 +61,9 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('invalid email or password', 401));
   }
 
-  const token = signToken(user._id);
-  res.status(201).json({
-    status: 'sucssus',
-    token,
-  });
+  signsendToken(user, res);
 });
+
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user._id, { active: false });
   res.status(204).json({
@@ -58,6 +74,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
+  // console.log(req.body)
   // 1) Getting token and check if it's there
   if (
     req.headers.authorization &&
@@ -97,12 +114,13 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   // 5) garant the access
   req.user = currentUser;
+
   next();
 });
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-    console.log(roles);
+    // console.log(req.user)
     if (!roles.includes(req.user.role)) {
       return next(
         new next(
@@ -116,9 +134,10 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
+
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1)get the user with email
-  console.log(req.body);
+  // console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
@@ -173,11 +192,7 @@ exports.resetPassword = async (req, res, next) => {
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
   await user.save();
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+  signsendToken(user, res);
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
@@ -222,9 +237,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.conformpassword = req.body.conformpassword;
   await user.save();
   // 4) log the user in, send JWT
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
+  signsendToken(user, res);
 });
