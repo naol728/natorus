@@ -3,6 +3,7 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const Tour = require('../../models/tourmodel');
 const User = require('../../models/usermodel');
+const Review = require('../../models/reviewmodel');
 
 dotenv.config({ path: './../../config.env' });
 // PROCESS TO CONECT TO THE REMOTE DATABASE
@@ -22,11 +23,17 @@ mongoose
   });
 
 // READ JSON FILE
-const tour = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
+const user = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
+const tour = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
+const review = JSON.parse(
+  fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'),
+);
 // IMPORT DATA INTO THE DATABASE FROM LOCAL
 const importdata = async () => {
   try {
-    await User.create(tour);
+    await User.create(user, { validateBeforeSave: false });
+    await Tour.create(tour);
+    await Review.create(review);
   } catch (err) {
     console.log(err);
   }
@@ -35,7 +42,9 @@ const importdata = async () => {
 // DELETE ALL THE DATA FROM DATABASE
 const deletetour = async () => {
   try {
+    await User.deleteMany();
     await Tour.deleteMany();
+    await Review.deleteMany();
     process.exit();
   } catch (err) {
     console.log(err);
