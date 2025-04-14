@@ -3,21 +3,20 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const helemet = require('helmet');
 const pino = require('pino-http')();
-// process.on('uncaughtException', (err) => {
-//   console.log(err.name, err.message);
-//   console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
-//   process.exit();
-// });
+process.on('uncaughtException', (err) => {
+  console.error(err.name, err.message);
+  console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
+  process.exit();
+});
 
 dotenv.config({ path: './config.env' });
 const app = require('./app');
-app.use(helemet());
-app.disable('x-powered-by');
-app.use(pino);
-
 if (process.env.NODE_ENV == 'development') {
   app.use(morgan('dev'));
 }
+app.use(helemet());
+app.disable('x-powered-by');
+app.use(pino);
 
 // PROCESS TO CONECT TO THE REMOTE DATABASE
 
@@ -45,7 +44,7 @@ const server = app.listen(port, () => {
 });
 
 process.on('unhandledRejection', (err) => {
-  console.log(err.name, err.message);
+  console.error(err.name, err.message);
   console.log('UNHANDELED REJECTION SERVER IS SHUTINGDOWN💥.....');
 
   server.close(() => {

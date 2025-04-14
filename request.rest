@@ -114,7 +114,7 @@ Content-Type: application/json
 }
 
 ### update review 
-patch http://127.0.0.1:5000/api/v1/review/67fb2c0666fc6ea484e4e9a5
+patch http://127.0.0.1:5000/api/v1/review/67fbf9fd63f92f68a1ce174b
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZWM2MmY4ZmI4MTRiNTZmYTE4MyIsImlhdCI6MTc0NDUxMzA0NiwiZXhwIjoxNzUyMjg5MDQ2fQ.PdCUtR1rB1GwZYVzTNzPq2iQeDJgKqbkGLP0A28ev58
 Content-Type: application/json
 
@@ -130,5 +130,19 @@ DELETE http://127.0.0.1:5000/api/v1/users/67fb1bd3c571c87c743d5a38
 
 ### me route
 get http://127.0.0.1:5000/api/v1/users/me
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZDViMDE5MGIyMTQzNjBkYzA1NyIsImlhdCI6MTc0NDUwODgzMSwiZXhwIjoxNzUyMjg0ODMxfQ.bcqDxq8vAipzOcqumsrnQGw1QpnsxPad3lAlgXNJT_s
+Content-Type: application/json
+
+
+### finding the nearest tour 
+/distance/:latlng/unit/:unit
+get http://127.0.0.1:5000/api/v1/tours/tours-withn/400/center/-117.97,34/unit/km
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZDViMDE5MGIyMTQzNjBkYzA1NyIsImlhdCI6MTc0NDUwODgzMSwiZXhwIjoxNzUyMjg0ODMxfQ.bcqDxq8vAipzOcqumsrnQGw1QpnsxPad3lAlgXNJT_s
+Content-Type: application/json
+
+
+### calculate the distance from my point 
+
+get http://127.0.0.1:5000/api/v1/tours/distance/-117.97,34/unit/mi
 Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZDViMDE5MGIyMTQzNjBkYzA1NyIsImlhdCI6MTc0NDUwODgzMSwiZXhwIjoxNzUyMjg0ODMxfQ.bcqDxq8vAipzOcqumsrnQGw1QpnsxPad3lAlgXNJT_s
 Content-Type: application/json

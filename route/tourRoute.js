@@ -11,7 +11,10 @@ router.use('/:tourId/reviews', reviewRoute);
 router
   .route('/top-5-cheap')
   .get(tourController.aliasTopTours, tourController.getAllTours);
-
+router
+  .route('/tours-withn/:distance/center/:latlng/unit/:unit')
+  .get(tourController.tourWithn);
+router.route('/distance/:latlng/unit/:unit').get(tourController.getDistances);
 router.route('/tour-stats').get(tourController.getTourStats);
 router
   .route('/monthly-plan/:year')
