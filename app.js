@@ -2,6 +2,7 @@ const express = require('express');
 const rateLimiter = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
+const path = require('path');
 
 // const xss = require('xss-clean');
 const app = express();
@@ -9,9 +10,15 @@ const app = express();
 const tourRouter = require('./route/tourRoute');
 const userRouter = require('./route/userRoute');
 const reviewRouter = require('./route/reviewRoute');
+const viewRouter = require('./route/viewRoute');
 const globalErrorHandler = require('./controllers/errorControllers');
 const AppError = require('./utils/appError');
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'view'));
 // GLOBAL MIDDLEWARE
+
+app.use(express.static(`${__dirname}/public`)); // ADDING A STATIC FILES
+
 const limiter = rateLimiter({
   max: 100,
   windowMs: 60 * 60 * 1000,
@@ -26,7 +33,6 @@ app.use(
     whitelist: ['duration', 'ratingsAverage', 'ratingsQuantity'], // WHITELISTING THE DATA
   }),
 );
-app.use(express.static(`${__dirname}/public`)); // ADDING A STATIC FILES
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString(); // ADDING REQUEST TIME STAMP
@@ -36,7 +42,7 @@ app.use((req, res, next) => {
 // ROUTING
 
 app.use(express.json({ limit: '10kb' })); // PARSING THE JSON DATA
-
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/review', reviewRouter);
