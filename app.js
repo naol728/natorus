@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 
 // ROUTING
 
-app.use(express.json({ limit: '10kb' })); // PARSING THE JSON DATA
+app.use(express.json({ limit: '10kb' })); // PARSING THE JSON DATA and limiting the parsed data 
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
