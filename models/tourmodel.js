@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./usermodel');
+const slugify = require('slugify');
 const tourSchema = new mongoose.Schema(
   {
     name: {
@@ -7,9 +8,11 @@ const tourSchema = new mongoose.Schema(
       required: [true, 'A tour must have name'],
       unique: true,
       trim: true,
+      slug: String,
       maxlength: [40, 'A tour name length must be less than 40'],
       minlength: [10, 'A tour name length must be greater than 10'],
     },
+    slug: String,
     duration: {
       type: Number,
       required: [true, 'A tour must have duration'],
@@ -65,7 +68,7 @@ const tourSchema = new mongoose.Schema(
       default: '2024:8:12',
       select: false,
     },
-    startDate: [Date],
+    startDates: [Date],
     description: {
       type: String,
     },
@@ -105,6 +108,11 @@ tourSchema.index({ price: 1, ratingAvarage: -1 });
 tourSchema.index({ startLocation: '2dsphere' });
 tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
+});
+
+tourSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 // Virtual populate

@@ -22,7 +22,7 @@ block content
                 .card__data
                     svg.card__icon
                         use(xlink:href='img/icons.svg#icon-calendar')
-                    span= `${tour.startDate[0]}`
+                    span= `${tour.startDates[0].toLocaleString("en-us",{month:"long",year:"numeric"})}`
                 .card__data
                     svg.card__icon
                         use(xlink:href='img/icons.svg#icon-flag')
@@ -39,4 +39,4 @@ block content
                 p.card__ratings
                     span.card__footer-value=`${tour.ratingAvarage}`
                     span.card__footer-text=`rating ${tour.ratingQuantity} `
-                a.btn.btn--green.btn--small(href=`/tour${tour.slug}`) Details
+                a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
