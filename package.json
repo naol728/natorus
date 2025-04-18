@@ -4,8 +4,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
-    "watch:js":"parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build:js":"parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+    "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "start:pod": "NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
     "prettier": "prettier --check '**/*.{js,jsx,ts,tsx,css}'",
@@ -15,9 +15,11 @@
   "license": "ISC",
   "description": "an exersise to node ,express ,mongodb",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-mongo-sanitize": "^2.2.0",
@@ -29,6 +31,7 @@
     "mongodb": "^6.11.0",
     "mongoose": "^8.13.2",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.2",
     "nodemailer": "^6.10.0",
     "pino-http": "^10.4.0",
     "pug": "^3.0.3",
@@ -46,7 +49,7 @@
     "eslint-plugin-react": "^7.37.2",
     "ndb": "^0.2.4",
     "nodemon": "^3.1.7",
-    "parcel": "^2.14.4",
+    "parcel-bundler": "^1.12.5",
     "prettier": "^3.4.1",
     "xss-clean": "^0.1.4"
   }

@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const helemet = require('helmet');
 const pino = require('pino-http')();
-process.on('uncaughtException', (err) => {
-  console.error(err.name, err.message);
-  console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
-  process.exit();
-});
+// process.on('uncaughtException', (err) => {
+//   console.error(err.name, err.message);
+//   console.log('UNHANDELED EXCEPTION SERVER IS SHUTINGDOWN💥.....');
+//   process.exit();
+// });
 
 dotenv.config({ path: './config.env' });
 const app = require('./app');
