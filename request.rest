@@ -33,12 +33,12 @@ Content-Type: application/json
 }
 
 ### signup a new user 
-POST  http://127.0.0.1:5000/api/v1/users/signup
+POST  http://127.0.0.1:3000/api/v1/users/signup
 Content-Type: application/json
 
 {
   "name":"naol",
-  "email":"naollll@gmail.com",
+  "email":"nao@gmail.com",
   "password":"Naol1234",
   "conformpassword":"Naol1234"
 }
@@ -81,15 +81,12 @@ Content-Type: application/json
 
 ### update the user pasword
 
-post http://127.0.0.1:5000/api/v1/users/updatepassword/67f641e9db2dc10c7040be85
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjY0MWU5ZGIyZGMxMGM3MDQwYmU4NSIsImlhdCI6MTc0NDIwMTkyMCwiZXhwIjoxNzUxOTc3OTIwfQ.3yjHwjksz2oUAiSCMwJdZ5Wizrft3PCCPXeRSPMQOME
+patch http://127.0.0.1:3000/api/v1/users/updateme
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDI3MWQ2MDY1YjIxYjE2MjcyZjBhOSIsImlhdCI6MTc0NDk5MDY3OCwiZXhwIjoxNzUyNzY2Njc4fQ.fj88REgzJV27P8trzqV73LLAi1GJaFitIuHNH-mbFaQ
 Content-Type: application/json
 
 {
-  "passwordCurrent":"useruser",
-  "password":"useruser",
-  "conformpassword":"useruser"
-
+  "name":"smilex"
 }
 
 ### delete a user 

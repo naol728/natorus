@@ -3,6 +3,7 @@ const rateLimiter = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 // const xss = require('xss-clean');
 const app = express();
@@ -18,7 +19,8 @@ app.set('views', path.join(__dirname, 'view'));
 // GLOBAL MIDDLEWARE
 
 app.use(express.static(`${__dirname}/public`)); // ADDING A STATIC FILES
-
+app.use(express.urlencoded({extended:true,limit:"10kb"}))
+app.use(cookieParser());
 const limiter = rateLimiter({
   max: 100,
   windowMs: 60 * 60 * 1000,
@@ -41,7 +43,7 @@ app.use((req, res, next) => {
 
 // ROUTING
 
-app.use(express.json({ limit: '10kb' })); // PARSING THE JSON DATA and limiting the parsed data 
+app.use(express.json({ limit: '10kb' })); // PARSING THE JSON DATA and limiting the parsed data
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
