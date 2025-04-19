@@ -45,6 +45,8 @@ router
   .delete(
     authController.protect,
     authController.restrictTo('admin', 'lead-guide'),
+    tourController.uploadTourimage,
+    tourController.resizeImages,
     tourController.deleteTour,
   );
 

@@ -1,5 +1,4 @@
 const express = require('express');
-
 const userController = require('./../controllers/userControllers');
 const authController = require('./../controllers/authController');
 
@@ -16,8 +15,13 @@ router.patch('/resetpassword/:token', authController.resetPassword);
 router.use(authController.protect);
 
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updatepassword', authController.updatePassword);
-router.patch('/updateme', authController.updateMe);
+router.patch('/updatepassword', userController.updatePassword);
+router.patch(
+  '/updateme',
+  userController.uploadUserPhoto,
+  userController.resizeUploadphoto,
+  userController.updateMe,
+);
 router.post('/deleteme', authController.deleteMe);
 
 // restricting this features to the admin only
