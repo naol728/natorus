@@ -35,6 +35,7 @@
     "nodemailer": "^6.10.0",
     "pino-http": "^10.4.0",
     "pug": "^3.0.3",
+    "sharp": "^0.34.1",
     "slugify": "^1.6.6",
     "validator": "^13.15.0"
   },

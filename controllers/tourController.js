@@ -1,6 +1,58 @@
 const Tour = require('./../models/tourmodel');
 const catchAsync = require('./../utils/catchAsync');
 const factory = require('./handlerFactory');
+const multer = require('multer');
+const sharp = require('sharp');
+
+const multerStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/public/img/users');
+  },
+  filename: function (req, file, cb) {
+    const etx = file.mimetype.split('/');
+    cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
+  },
+});
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('Not an image! please upload only image.', 400), false);
+  }
+};
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+
+exports.uploadTourimage = upload.fields([
+  { name: 'imageCover', maxCount: 1 },
+  { name: 'images', maxCount: 3 },
+]);
+
+exports.resizeImages = catchAsync(async (req, res, next) => {
+  if (!req.files.imageCover || !req.files.images) return next();
+  //  saving the imagecover
+  req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+  await sharp(req.files.imageCover.buffer)
+    .resize(2000, 1333)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/tours/${req.body.imageCover}`);
+
+  //  savimg the multiple images
+  req.body.images = [];
+  await Promise.all(
+    req.files.images.map(async (file, i) => {
+      const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+      await sharp(file.buffer)
+        .resize(2000, 1333)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/img/tours/${filename}`);
+    }),
+  );
+  req.body.images.push(filename);
+  next();
+});
 
 exports.aliasTopTours = (req, res, next) => {
   req.query.limit = '5';
@@ -121,7 +173,6 @@ exports.tourWithn = catchAsync(async (req, res, next) => {
   });
 });
 
-
 exports.getDistances = catchAsync(async (req, res, next) => {
   const { latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
@@ -132,8 +183,8 @@ exports.getDistances = catchAsync(async (req, res, next) => {
     next(
       new AppError(
         'Please provide latitutr and longitude in the format lat,lng.',
-        400
-      )
+        400,
+      ),
     );
   }
 
@@ -142,24 +193,24 @@ exports.getDistances = catchAsync(async (req, res, next) => {
       $geoNear: {
         near: {
           type: 'Point',
-          coordinates: [lng * 1, lat * 1]
+          coordinates: [lng * 1, lat * 1],
         },
         distanceField: 'distance',
-        distanceMultiplier: multiplier
-      }
+        distanceMultiplier: multiplier,
+      },
     },
     {
       $project: {
         distance: 1,
-        name: 1
-      }
-    }
+        name: 1,
+      },
+    },
   ]);
 
   res.status(200).json({
     status: 'success',
     data: {
-      data: distances
-    }
+      data: distances,
+    },
   });
 });
