@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-const stripe = Stripe(
-  'pk_test_51RGIbTQv01GBJd0NJbHFF0TXf44CPvUFBlG0V5lNcWIk9WDjfYm8CFxIu5Bpt8PldbSVQaPVru9QDMfILgeJfk0D006LsY0pzN',
-);
+
 
 export const BookTour = async (tourId) => {
   try {
@@ -14,6 +12,7 @@ export const BookTour = async (tourId) => {
     const result = await stripe.redirectToCheckout({
       sessionId: session.data.session.id,
     });
+    console.log(result)
   } catch (err) {
     showAlert('error', err.message);
   }
