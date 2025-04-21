@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 
 ### login the user
-POST  http://127.0.0.1:5000/api/v1/users/login
+POST  http://127.0.0.1:3000/api/v1/users/login
 Content-Type: application/json
 
 {
@@ -138,8 +138,18 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZDViMD
 Content-Type: application/json
 
 
-### calculate the distance from my point 
+### booking the tour with the strpe payment integration 
 
-get http://127.0.0.1:5000/api/v1/tours/distance/-117.97,34/unit/mi
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZDViMDE5MGIyMTQzNjBkYzA1NyIsImlhdCI6MTc0NDUwODgzMSwiZXhwIjoxNzUyMjg0ODMxfQ.bcqDxq8vAipzOcqumsrnQGw1QpnsxPad3lAlgXNJT_s
-Content-Type: application/json
+get http://127.0.0.1:3000/api/v1/booking/checkout/session/5c88fa8cf4afda39709c2955
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOGExZWM2MmY4ZmI4MTRiNTZmYTE4MyIsImlhdCI6MTc0NTI0MjQ5OSwiZXhwIjoxNzUzMDE4NDk5fQ.SyFzS0b9rCXO_luIVgrfaMkGOLgJBvjji2ueVh3NFdw
+
+
+
+
+
+
+
+
+
+
+ 
