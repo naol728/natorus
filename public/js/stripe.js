@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-
+const stripe = Stripe(process.env.STRIPEPUBLIKKEY);
 
 export const BookTour = async (tourId) => {
   try {
@@ -12,7 +12,7 @@ export const BookTour = async (tourId) => {
     const result = await stripe.redirectToCheckout({
       sessionId: session.data.session.id,
     });
-    console.log(result)
+    console.log(result);
   } catch (err) {
     showAlert('error', err.message);
   }
