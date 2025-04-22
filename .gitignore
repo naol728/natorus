@@ -1,3 +1,5 @@
 
 node_modules/
 config.envconfig.env
+.cache/
+dev-data/
